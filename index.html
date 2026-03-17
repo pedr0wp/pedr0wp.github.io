@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedro Miranda — Video Script Writer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2eb;
+    --cream: #ede9df;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --rust: #b84a2e;
+    --muted: #7a7468;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.5;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    pointer-events: none;
+  }
+
+  .hero-left::after {
+    content: '"';
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 400px;
+    color: rgba(201,168,76,0.06);
+    line-height: 1;
+    bottom: -60px;
+    right: -20px;
+    pointer-events: none;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 700;
+    color: #f5f2eb;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: rgba(245,242,235,0.7);
+    max-width: 380px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    background: var(--cream);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--rust));
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .packages {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pkg {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .pkg:hover {
+    border-color: var(--gold);
+    transform: translateX(6px);
+    box-shadow: -4px 0 0 var(--gold);
+  }
+
+  .pkg.featured {
+    background: var(--ink);
+    border-color: var(--gold);
+  }
+
+  .pkg-name {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .pkg.featured .pkg-name { color: var(--gold); }
+
+  .pkg-desc {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .pkg.featured .pkg-desc { color: var(--paper); }
+
+  .pkg-detail {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .pkg.featured .pkg-detail { color: rgba(245,242,235,0.5); }
+
+  .pkg-price {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  .pkg.featured .pkg-price { color: var(--gold); }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 100px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-title em { font-style: italic; color: var(--rust); }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 24px 0 48px;
+  }
+
+  /* ── TABS ── */
+  .tab-bar { display: flex; border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 48px; }
+  .tab-btn { font-family: var(--font-body); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 12px 28px; cursor: pointer; transition: color 0.2s, border-color 0.2s; margin-bottom: -1px; }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── SAMPLES ── */
+  .samples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .shorts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .sample-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .sample-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+  .sample-top { height: 8px; }
+  .sample-body { padding: 28px; }
+  .sample-niche { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .sample-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 16px; line-height: 1.3; }
+  .sample-excerpt { font-size: 13px; color: var(--muted); line-height: 1.8; border-left: 2px solid var(--cream); padding-left: 16px; font-style: italic; }
+  .script-section { margin-bottom: 14px; }
+  .script-section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); font-weight: 500; margin-bottom: 4px; display: block; }
+  .script-text { font-size: 13px; color: var(--ink); line-height: 1.85; white-space: pre-line; }
+  .sample-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--cream); }
+  .meta-pill { font-size: 11px; background: var(--cream); padding: 4px 10px; border-radius: 20px; color: var(--muted); }
+  .expand-btn { font-size: 12px; color: var(--gold); background: none; border: none; cursor: pointer; padding: 0; margin-top: 12px; font-family: var(--font-body); text-decoration: underline; text-underline-offset: 3px; display: block; }
+  .full-script { display: none; margin-top: 16px; border-top: 1px solid var(--cream); padding-top: 16px; }
+  .full-script.open { display: block; }
+
+  /* ── PROCESS ── */
+  .process-bg {
+    background: var(--ink);
+    padding: 100px 80px;
+  }
+
+  .process-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .process-bg .section-title { color: var(--paper); }
+  .process-bg .section-label { color: var(--gold); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: rgba(201,168,76,0.3);
+  }
+
+  .step {
+    padding: 0 24px;
+    position: relative;
+  }
+
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 24px;
+    background: var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .testi {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 32px;
+    position: relative;
+  }
+
+  .testi::before {
+    content: '★★★★★';
+    display: block;
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .testi-text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .testi-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .testi-country {
+    font-size: 12px;
+    color: var(--gold);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--rust) 100%);
+    padding: 80px;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 40px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: white;
+    color: var(--rust);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    padding: 18px 48px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left, .hero-right { padding: 60px 40px; }
+    .samples-grid, .testimonials { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .steps::before { display: none; }
+    .section, .process-bg, .cta-section { padding: 60px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="tag">Available for new projects</div>
+    <h1 class="hero-name">Pedro <em>Miranda</em></h1>
+    <p class="hero-title">Video Script Writer & Content Strategist</p>
+    <p class="hero-desc">You give me the topic. I deliver a script ready to record — with a strong hook, clear structure, and a call to action that works. Fast turnaround, no back-and-forth.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">24h</div>
+        <div class="stat-label">Delivery</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Formats covered</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <p class="section-label">My packages</p>
+    <div class="packages">
+      <div class="pkg" style="animation-delay:0.2s">
+        <div>
+          <div class="pkg-name">Basic</div>
+          <div class="pkg-desc">Short-form script</div>
+          <div class="pkg-detail">Up to 5 min · 1 revision · 48h</div>
+        </div>
+        <div class="pkg-price">$10</div>
+      </div>
+      <div class="pkg featured" style="animation-delay:0.3s">
+        <div>
+          <div class="pkg-name">⭐ Standard — Most popular</div>
+          <div class="pkg-desc">Full YouTube script</div>
+          <div class="pkg-detail">Up to 10 min · 2 revisions · 24h + title & thumbnail ideas</div>
+        </div>
+        <div class="pkg-price">$25</div>
+      </div>
+      <div class="pkg" style="animation-delay:0.4s">
+        <div>
+          <div class="pkg-name">Premium</div>
+          <div class="pkg-desc">Long-form + full kit</div>
+          <div class="pkg-detail">Up to 20 min · 3 revisions · 24h + SEO description + hashtags</div>
+        </div>
+        <div class="pkg-price">$50</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLES -->
+<section class="section">
+  <p class="section-label reveal">Portfolio samples</p>
+  <h2 class="section-title reveal">Scripts that <em>actually</em> get watched</h2>
+  <div class="divider reveal"></div>
+
+  <div class="tab-bar reveal">
+    <button class="tab-btn active" onclick="switchTab('long', this)">Long-form</button>
+    <button class="tab-btn" onclick="switchTab('shorts', this)">Shorts</button>
+  </div>
+
+  <!-- LONG FORM -->
+  <div class="tab-panel active" id="tab-long">
+    <div class="samples-grid">
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #c9a84c, #e8d5a3);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Personal Finance · YouTube</div>
+          <div class="sample-title">How I Saved $10,000 in One Year Making Minimum Wage</div>
+          <div class="sample-excerpt">"Most people think saving money is about discipline. It's not. It's about one decision you make before your paycheck even hits your account."</div>
+          <button class="expand-btn" onclick="toggleScript(this)">Read full script ↓</button>
+          <div class="full-script">
+            <div class="script-section">
+              <span class="script-section-label">[Hook]</span>
+              <p class="script-text">Most people think saving money is about discipline. It's not. It's about one decision you make before your paycheck even hits your account. I made that decision 12 months ago — and today I'm going to show you exactly what it was, and how it helped me save $10,000 on a salary most people would laugh at.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Problem]</span>
+              <p class="script-text">Here's what nobody tells you about saving money: willpower doesn't work. Every financial guru says "cut your coffee, stop eating out, be more disciplined." And every month you try — and fail. Not because you're weak. Because you're fighting your own brain. Our brains are wired to spend what's in front of us. So the solution isn't more discipline. It's removing the decision entirely.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Solution]</span>
+              <p class="script-text">The moment I got paid, I automated a transfer of 20% straight into a separate savings account I couldn't easily access. Not after bills. Not after groceries. First. Before anything. This is called paying yourself first — and it's the single most effective money habit that exists. I set it up once, in about 4 minutes, and forgot about it.
+
+Here's what that looked like in practice:
+— Monthly income: $2,100
+— Auto-transfer on payday: $420
+— What I lived on: $1,680
+
+Did I feel it? Honestly, the first month, yes. By month three, I didn't even notice.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Results]</span>
+              <p class="script-text">By month 6, I had $2,520 saved. By month 12 — $10,080. I didn't give up restaurants. I didn't cancel Netflix. I just stopped letting my future self compete with my present self for the same money.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[CTA]</span>
+              <p class="script-text">If you want to try this, here's your homework for today: open a second bank account — a free one — and set up an automatic transfer for the day after payday. Start with 10% if 20% feels like too much. Drop a comment below telling me what percentage you're starting with. And if this helped you, subscribe. I post one video every week on making your money work harder than you do.</p>
+            </div>
+          </div>
+          <div class="sample-meta">
+            <span class="meta-pill">8 min script</span>
+            <span class="meta-pill">Personal Finance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #b84a2e, #d4775e);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Fitness · YouTube</div>
+          <div class="sample-title">The 4-7-8 Breathing Trick That Stops Anxiety in 60 Seconds</div>
+          <div class="sample-excerpt">"Your body has a built-in off switch for anxiety. Most people have never used it. Here's how."</div>
+          <button class="expand-btn" onclick="toggleScript(this)">Read full script ↓</button>
+          <div class="full-script">
+            <div class="script-section">
+              <span class="script-section-label">[Hook]</span>
+              <p class="script-text">Your body has a built-in off switch for anxiety. Most people have never used it. Here's how.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Content]</span>
+              <p class="script-text">It's called the 4-7-8 breathing method. Here's all you do.
+
+Inhale through your nose for 4 seconds.
+Hold your breath for 7 seconds.
+Exhale slowly through your mouth for 8 seconds.
+
+That's one cycle. Do it three times.
+
+Here's why it works: the long exhale activates your parasympathetic nervous system — that's your body's calm mode. It physically lowers your heart rate and drops cortisol levels in under a minute. No app. No medication. No experience needed.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[CTA]</span>
+              <p class="script-text">Try it right now — pause the video, do 3 cycles, and tell me in the comments how you feel. Follow for one science-backed health tip every day.</p>
+            </div>
+          </div>
+          <div class="sample-meta">
+            <span class="meta-pill">Health & Fitness</span>
+            <span class="meta-pill">Short YouTube</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #3a6e8a, #5a9ab8);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Productivity · YouTube</div>
+          <div class="sample-title">Why Your To-Do List Is Making You Less Productive</div>
+          <div class="sample-excerpt">"If you have a to-do list right now, I want you to look at it. How many of those items have been there for more than a week?"</div>
+          <button class="expand-btn" onclick="toggleScript(this)">Read full script ↓</button>
+          <div class="full-script">
+            <div class="script-section">
+              <span class="script-section-label">[Hook]</span>
+              <p class="script-text">If you have a to-do list right now, I want you to look at it. How many items are on it? Ten? Twenty? More? Now tell me — how many of those have been on that list for more than a week? Most people I ask say at least half. And that's not a discipline problem. That's a system problem. Today I'm going to show you why your to-do list is actually working against you — and what to use instead.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Problem]</span>
+              <p class="script-text">The traditional to-do list has three fatal flaws.
+
+First: it has no time. Writing "call dentist" and "launch new product" on the same list treats them as equal tasks. They're not. One takes 3 minutes. The other takes 3 weeks.
+
+Second: it grows faster than it shrinks. Every day you add more than you complete. The list becomes a monument to everything you haven't done — and that guilt kills motivation.
+
+Third: it lives outside your day. A list sitting in a notebook or an app doesn't tell you when to do anything. So you look at it, feel overwhelmed, and go check Instagram instead.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Solution]</span>
+              <p class="script-text">The fix is something called time blocking. Instead of a list of tasks, you have a calendar of work sessions.
+
+Here's how it works. Every Sunday — or every morning if you prefer — you take your tasks and assign each one a specific time slot in your calendar. Not "write report." But "write report — Tuesday, 9am to 11am."
+
+Now your day has shape. You're not choosing what to do next — it's already decided. Decision fatigue disappears. Procrastination has nowhere to hide.
+
+I use three types of blocks: deep work blocks for anything that requires real focus, admin blocks for emails, calls, and small tasks, and buffer blocks — 30-minute gaps between blocks to handle anything unexpected.
+
+The key rule: treat your blocks like meetings. You wouldn't cancel a meeting with your boss to scroll Twitter. Don't cancel a block either.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[Objections]</span>
+              <p class="script-text">"But what if something urgent comes up?" That's what buffer blocks are for. "But I'm not good at estimating time." Nobody is at first. You get better in two weeks. "But I hate rigid schedules." Time blocking isn't about being rigid — it's about being intentional. You design the schedule. You can change it. You're in control.</p>
+            </div>
+            <div class="script-section">
+              <span class="script-section-label">[CTA]</span>
+              <p class="script-text">Here's your challenge: tonight, before you sleep, block out tomorrow. Just tomorrow. Three deep work sessions, two admin blocks, two buffers. See how differently your day feels. Link in the description to the free template I use. Subscribe if you want more systems like this. And drop a comment: what's the task that's been on your to-do list the longest?</p>
+            </div>
+          </div>
+          <div class="sample-meta">
+            <span class="meta-pill">10 min script</span>
+            <span class="meta-pill">Productivity</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SHORTS -->
+  <div class="tab-panel" id="tab-shorts">
+    <div class="shorts-grid">
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #c9a84c, #e8d5a3);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Finance · Short</div>
+          <div class="sample-title">The $5 Rule That Changed How I Spend Money</div>
+          <div class="script-section">
+            <span class="script-section-label">[Hook]</span>
+            <p class="script-text">Before you buy anything, ask yourself one question.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[Content]</span>
+            <p class="script-text">Would I walk 5 minutes to save $5 on this?
+
+If yes — the purchase matters to you. Think twice.
+If no — you don't actually value the money. You're spending on impulse.
+
+This is called the $5 rule. It exposes how you really feel about a purchase in under 3 seconds. Not budgets. Not spreadsheets. One question.
+
+Try it today. You'll surprise yourself.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[CTA]</span>
+            <p class="script-text">Follow for one money tip a day. Comment: what's the last thing you bought that failed this test?</p>
+          </div>
+          <div class="sample-meta"><span class="meta-pill">Short format</span><span class="meta-pill">Finance</span></div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #3a6e8a, #5a9ab8);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Productivity · Short</div>
+          <div class="sample-title">Stop Starting Your Day With Email</div>
+          <div class="script-section">
+            <span class="script-section-label">[Hook]</span>
+            <p class="script-text">Checking email first thing in the morning is the fastest way to ruin your day.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[Content]</span>
+            <p class="script-text">Here's why. Email is other people's agenda. The moment you open it, you switch from creator mode to reaction mode. You spend your sharpest mental hours solving other people's problems instead of your own.
+
+The fix is simple. Block the first 60 to 90 minutes of your day for one important task — before you open email, Slack, or any notification. Do that one thing first.
+
+Your best hours belong to your most important work. Not someone else's inbox.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[CTA]</span>
+            <p class="script-text">Try it tomorrow. Comment below what you'll work on in your first 90 minutes.</p>
+          </div>
+          <div class="sample-meta"><span class="meta-pill">Short format</span><span class="meta-pill">Productivity</span></div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #7a5c8a, #a07ab8);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Mental Health · Short</div>
+          <div class="sample-title">You're Not Lazy. You're Overwhelmed.</div>
+          <div class="script-section">
+            <span class="script-section-label">[Hook]</span>
+            <p class="script-text">If you've been feeling unmotivated, this might be why.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[Content]</span>
+            <p class="script-text">When your brain has too many open loops — too many tasks, decisions, and worries floating around with no home — it shuts down. It looks like laziness. It feels like laziness. But it's actually your nervous system in protective mode.
+
+The fix isn't pushing harder. It's clearing the loops.
+
+Write down everything in your head. Every task, worry, and idea — on paper. In one brain dump. It takes 10 minutes and feels like taking a deep breath.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[CTA]</span>
+            <p class="script-text">Try it tonight. Follow for more mental clarity tips.</p>
+          </div>
+          <div class="sample-meta"><span class="meta-pill">Short format</span><span class="meta-pill">Mental Health</span></div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #4a7a4a, #7ab87a);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Career · Short</div>
+          <div class="sample-title">The Email Trick That Gets You Noticed At Work</div>
+          <div class="script-section">
+            <span class="script-section-label">[Hook]</span>
+            <p class="script-text">Most people write emails that get ignored. Here's what to do instead.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[Content]</span>
+            <p class="script-text">Put the most important information in the first line. Not "I hope this email finds you well." Not a three-paragraph intro. The answer, the request, or the decision — first line, always.
+
+People skim emails. If your point is buried in the third paragraph, it won't be read.
+
+Here's the structure that works:
+Line 1 — what you need or what you're saying.
+Line 2 to 4 — the context, if necessary.
+Last line — clear next step or deadline.
+
+Short. Clear. Impossible to ignore.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[CTA]</span>
+            <p class="script-text">Save this and use it in your next email. Follow for more career tips that actually work.</p>
+          </div>
+          <div class="sample-meta"><span class="meta-pill">Short format</span><span class="meta-pill">Career</span></div>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-top" style="background: linear-gradient(90deg, #b84a2e, #d4775e);"></div>
+        <div class="sample-body">
+          <div class="sample-niche">Fitness · Short</div>
+          <div class="sample-title">The Only 3 Exercises You Actually Need</div>
+          <div class="script-section">
+            <span class="script-section-label">[Hook]</span>
+            <p class="script-text">You don't need a gym membership. You need three movements.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[Content]</span>
+            <p class="script-text">Push. Pull. Hinge.
+
+Push — like a push-up. Trains your chest, shoulders, triceps.
+Pull — like a row or a pull-up. Trains your back and biceps.
+Hinge — like a deadlift or a hip hinge. Trains your glutes, hamstrings, and lower back.
+
+Every exercise in the gym is a variation of one of these three. If you train all three, three times a week, you will build a strong, functional body. No machines. No complicated programs. No excuses.</p>
+          </div>
+          <div class="script-section">
+            <span class="script-section-label">[CTA]</span>
+            <p class="script-text">Save this video. Start today with 3 sets of 10 of each. Follow for simple fitness that actually fits your life.</p>
+          </div>
+          <div class="sample-meta"><span class="meta-pill">Short format</span><span class="meta-pill">Fitness</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- PROCESS -->
+<div class="process-bg">
+  <div class="process-inner">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">From brief to <em style="color:var(--gold)">ready-to-record</em><br>in 24 hours</h2>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">You share the brief</div>
+        <div class="step-desc">Topic, audience, tone, and duration. A simple form — takes 3 minutes.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">I research & structure</div>
+        <div class="step-desc">I map out hooks, key points, and a narrative arc built for retention.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">Script is written</div>
+        <div class="step-desc">Every line is crafted to sound natural when spoken — not like it was written by a robot.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-title">You receive & record</div>
+        <div class="step-desc">Clean Google Doc, formatted with timing notes. Request revisions if needed.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <p class="section-label reveal">What clients say</p>
+  <h2 class="section-title reveal">Real results from <em>real creators</em></h2>
+  <div class="divider reveal"></div>
+
+  <div class="testimonials">
+    <div class="testi reveal">
+      <p class="testi-text">"I've tried other script writers on Fiverr. Pedro is the only one who actually understood my voice and made it sound like me — not a generic YouTube channel."</p>
+      <div class="testi-author">Marcus T.</div>
+      <div class="testi-country">Tech creator · United States</div>
+    </div>
+    <div class="testi reveal">
+      <p class="testi-text">"Ordered on a Friday night, had the script Saturday morning. The hook alone got my video to 50K views. Ordering again this week."</p>
+      <div class="testi-author">Sophie L.</div>
+      <div class="testi-country">Lifestyle creator · United Kingdom</div>
+    </div>
+    <div class="testi reveal">
+      <p class="testi-text">"We needed a product explainer for our SaaS launch. Pedro delivered something our whole team loved. Professional, sharp, and on-brand from the first draft."</p>
+      <div class="testi-author">David K.</div>
+      <div class="testi-country">Startup founder · Canada</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title">Ready to script your next video?</h2>
+  <p class="cta-sub">Most orders delivered within 24 hours. First-time clients get a free hook rewrite.</p>
+  <a href="#" class="cta-btn">Order on Fiverr →</a>
+</div>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleScript(btn) {
+    const fs = btn.nextElementSibling;
+    const open = fs.classList.toggle('open');
+    btn.textContent = open ? 'Hide script ↑' : 'Read full script ↓';
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
